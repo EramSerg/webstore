@@ -4,6 +4,7 @@ from datetime import datetime
 from django.http import JsonResponse
 
 
+
 DIRECTION_TRANSFORM = {
     'n': 'северное',
     'nne': 'северо - северо - восточное',
@@ -25,7 +26,7 @@ DIRECTION_TRANSFORM = {
 }
 
 
-def current_weather(lat=59.93, lon=30.31):
+def current_weather(request, lat=59.13, lon=30):
 
     '''
     :param lat: широта, интересующего местоположения
@@ -40,7 +41,7 @@ def current_weather(lat=59.93, lon=30.31):
     data = response.json()
 
     result = {
-        'city': data['geo_object']['locality']['name'],
+        'city': data['geo_object']['province']['name'],
         'time': datetime.fromtimestamp(data['fact']['uptime']).strftime("%H:%M"),
         'temp': data['fact']['temp'],
         'feels_like_temp': data['fact']['feels_like'],
@@ -50,4 +51,6 @@ def current_weather(lat=59.93, lon=30.31):
         'wind_gust': data['fact']['wind_gust'],
         'wind_dir': DIRECTION_TRANSFORM.get(data['fact']['wind_dir']),
     }
+
     return JsonResponse(result, json_dumps_params={'ensure_ascii': False, 'indent': 4})
+
