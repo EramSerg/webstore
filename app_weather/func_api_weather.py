@@ -53,5 +53,5 @@ def current_weather(lat=59.13, lon=30):
         'wind_dir': DIRECTION_TRANSFORM.get(data['fact']['wind_dir']),
     }
 
-    return JsonResponse(result, json_dumps_params={'ensure_ascii': False, 'indent': 4})
+    return result
 

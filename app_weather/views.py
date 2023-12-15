@@ -7,5 +7,12 @@ from .func_api_weather import current_weather
 
 def weather_view(request: HttpRequest):
     if request.method == "GET":
-        return current_weather()
+        lat = request.GET.get('lat')
+        lon = request.GET.get('lon')
+        if lat and lon:
+            data = current_weather(lat=lat, lon=lon)
+        else:
+            data = current_weather()
+
+        return JsonResponse(data, json_dumps_params={'ensure_ascii': False, 'indent': 4})
 
