@@ -25,8 +25,7 @@ def filtering_category(database: dict,
     else:
         result = [y for y in database.values()]  # TODO Трансформируйте database в список словарей
     if ordering_key is not None:
-        sorted(result, key=lambda x: x[ordering_key],
-               reverse=reverse)  # TODO Проведите сортировку result по ordering_key и параметру reverse
+        result = sorted(result, key=lambda x: x[ordering_key], reverse=reverse)  # TODO Проведите сортировку result по ordering_key и параметру reverse
     return result
 
 
