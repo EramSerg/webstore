@@ -1,0 +1,61 @@
+{% extends 'store/base.html' %}
+{%load static%}
+
+{% block title %}
+<title>Избранное</title>
+{% endblock %}
+
+{% block content%}
+    <div class="hero-wrap hero-bread" style="background-image: url({% static 'store/images/bg_1.jpg' %});">
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+          <div class="col-md-9 ftco-animate text-center">
+                <p class="breadcrumbs"><span class="mr-2"></span></p>
+            <h1 class="mb-0 bread">Избранное</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="ftco-section ftco-cart">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 ftco-animate">
+            <div class="cart-list">
+              <table class="table">
+                <thead class="thead-primary">
+                <tr class="text-center">
+                  <th>&nbsp;</th>
+                  <th>&nbsp;</th>
+                  <th>Продукт</th>
+                  <th>Цена, &#x20bd</th>
+                </tr>
+                </thead>
+                <tbody>
+                  {% for product in products %}
+                  {% for id, prod in product.items %}
+                    <tr class="text-center">
+                      <td class="product-remove"><a href="{% url 'wishlist:remove_from_wishlist_now' prod.id %}"><span class="ion-ios-close"></span></a></td>
+
+                      <td class="image-prod"><div class="img" style="background-image:url({% static prod.url %});"></div></td>
+
+                      <td class="product-name">
+                        <h3>{{prod.name}}</h3>
+                        <p>{{prod.description}}</p>
+                      </td>
+                      {% if prod.discount %}
+                      <td class="price">{{prod.price_after}}</td>
+                      {% else %}
+                      <td class="price">{{prod.price_before}}</td>
+                      {% endif %}
+                    </tr><!-- END TR-->
+                  {% endfor %}
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+{% endblock %}
